@@ -16,7 +16,7 @@ Crear una clase base que extienda de Model de lgx-axios-dev-tools con la url bas
 import { Model } from "lgx-axios-dev-tools";
 
 export class Base extends Model {
-  baseUrl(): string {
+  baseUrl() {
     return "http://localhost:3000";
   }
 }
@@ -219,7 +219,7 @@ const resp = await User.header("pin_code", "123456").destroy(23);
 import { Model } from "lgx-axios-dev-tools";
 
 export class YoutubeBaseModel extends Model {
-  public baseUrl(): string {
+  public baseUrl() {
     return "https://www.googleapis.com/youtube";
   }
 }
@@ -248,7 +248,7 @@ export class Base extends Model {
     per_page: "itemsPerPage"
   };
 
-  baseUrl(): string {
+  baseUrl() {
     return "http://localhost:3000";
   }
 }
