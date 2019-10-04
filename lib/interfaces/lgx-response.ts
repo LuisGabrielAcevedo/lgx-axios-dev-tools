@@ -1,3 +1,3 @@
-export interface LgxResponse {
+export interface ILgxResponse {
   [key: string]: any;
 }

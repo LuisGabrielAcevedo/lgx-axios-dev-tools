@@ -312,7 +312,7 @@ export class AppComponent implements OnInit {
 ```javascript
 import { Component, Vue } from "vue-property-decorator";
 import Template from "./App.vue";
-import { Model, ELgxSortDirection, LgxResponse } from "lgx-axios-dev-tools";
+import { Model, ELgxSortDirection, ILgxResponse } from "lgx-axios-dev-tools";
 
 class BaseModel extends Model {
   public baseUrl() {
@@ -337,7 +337,7 @@ export default class App extends Vue {
   }
 
   public async loadProducts() {
-    const resp: LgxResponse = await Product.page(this.page)
+    const resp: ILgxResponse = await Product.page(this.page)
       .perPage(this.perPage)
       .orderBy("updateAt", ELgxSortDirection.DESC)
       .find();
@@ -363,7 +363,7 @@ export default class App extends Vue {
 
 ```javascript
 import React, { Component } from "react";
-import { Model, ELgxSortDirection, LgxResponse } from "lgx-axios-dev-tools";
+import { Model, ELgxSortDirection, ILgxResponse } from "lgx-axios-dev-tools";
 
 class BaseModel extends Model {
   public baseUrl() {
@@ -387,7 +387,7 @@ class App extends Component {
   }
 
   public async loadProducts() {
-    const resp: LgxResponse = await Product.page(this.page)
+    const resp: ILgxResponse = await Product.page(this.page)
       .perPage(this.perPage)
       .orderBy("updateAt", ELgxSortDirection.DESC)
       .find();

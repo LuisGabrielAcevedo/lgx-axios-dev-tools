@@ -3,7 +3,7 @@ import { ELgxSortDirection } from "../enums/lgx-sort-directions";
 import { Observable } from "rxjs";
 import { ILgxModel } from "./lgx-model";
 
-export interface ILgx {
+export interface Lgx {
   page(page: number): Builder;
   perPage(perPage: number): Builder;
   noPagination(): Builder;

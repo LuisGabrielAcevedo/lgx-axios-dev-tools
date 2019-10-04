@@ -1,4 +1,4 @@
-import { ILgx } from "./interfaces/lgx";
+import { Lgx } from "./interfaces/lgx";
 import { Model } from "./lgx-model";
 import { LgxQuery } from "./query/lgx-query";
 import { LgxFilter } from "./filter/lgx-filter";
@@ -15,7 +15,7 @@ import { ILgxModel } from "./interfaces/lgx-model";
 import lgxObjectToFormData from "./form-data/lgx-form-data";
 import { ELgxUrlAction } from "./enums/lgx-url-actions";
 
-export class Builder implements ILgx {
+export class Builder implements Lgx {
   protected headers: LgxHeader[];
   protected formDataActive: boolean = false;
   private httpClient: LgxHttpClient;

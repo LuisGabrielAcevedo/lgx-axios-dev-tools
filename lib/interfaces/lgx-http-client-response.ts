@@ -1,5 +1,5 @@
-import { LgxResponse } from "./lgx-response";
+import { ILgxResponse } from "./lgx-response";
 
 export interface ILgxHttpClientResponse {
-  getData(): LgxResponse;
+  getData(): ILgxResponse;
 }
