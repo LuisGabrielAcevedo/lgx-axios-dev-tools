@@ -32,7 +32,7 @@ const lgxObjectToFormData = (
     ? false
     : cfg.nullsAsUndefineds;
   fd = fd || new FormData();
-  
+
   if (isUndefined(obj)) {
     return fd;
   } else if (isNull(obj)) {
@@ -43,6 +43,7 @@ const lgxObjectToFormData = (
       fd.append(attribute, "");
     } else {
       obj.forEach((value: string, index: number) => {
+        if (isFile(value) || isBlob(value)) pre = pre || "file";
         const attribute: string = pre + "[" + (cfg!.indices ? index : "") + "]";
         lgxObjectToFormData(value, cfg, fd, attribute);
       });
@@ -52,7 +53,6 @@ const lgxObjectToFormData = (
   } else if (isObject(obj) && !isFile(obj) && !isBlob(obj)) {
     Object.keys(obj).forEach(prop => {
       const value = obj[prop];
-
       if (isArray(value)) {
         while (prop.length > 2 && prop.lastIndexOf("[]") === prop.length - 2) {
           prop = prop.substring(0, prop.length - 2);
@@ -61,6 +61,8 @@ const lgxObjectToFormData = (
       const attribute = pre ? pre + "[" + prop + "]" : prop;
       lgxObjectToFormData(value, cfg, fd, attribute);
     });
+  } else if (isFile(obj)) {
+    fd.append(pre || "file", obj, obj.name || pre || "file");
   } else {
     fd.append(pre!, obj);
   }

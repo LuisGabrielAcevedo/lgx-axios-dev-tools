@@ -58,7 +58,7 @@ export abstract class Model {
     return new Builder(this).findById(id);
   }
 
-  public static findByIdRx(id: number): Observable<any> {
+  public static findByIdRx(id: string | number): Observable<any> {
     return new Builder(this).findByIdRx(id);
   }
 

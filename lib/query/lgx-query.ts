@@ -149,25 +149,22 @@ export class LgxQuery {
     }
   }
 
-  protected reurl(resource: string): string {
+  protected formatUrl(id?: string | number): string {
     let url = "";
     if (this.url) {
       url =
         this.url.getAction() === "force"
           ? this.url.getUrl()
-          : `${resource}/${this.url.getUrl()}`;
+          : `${this.resource || url}${id ? "/" + id : ""}/${this.url.getUrl()}`;
     } else {
-      url = resource || url;
+      url = this.resource || url;
+      if (id) url += `/${id}`;
     }
     return url;
   }
 
   public toString(id?: string | number): string {
-    let url: string = this.reurl(this.resource);
-
-    if (id) {
-      url += `/${id}`;
-    }
+    let url: string = this.formatUrl(id);
 
     const searchParams: LgxQueryParam[] = [];
     this.addFilterParameters(searchParams);
