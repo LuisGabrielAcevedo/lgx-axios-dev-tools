@@ -179,6 +179,26 @@ const resp = await User.page(1)
   .find();
 ```
 
+#### filter
+
+```javascript
+// filter(attribute: string, value: string): Builder;
+const resp = await User.page(1)
+  .perPage(10),
+  .filter("status","ACTIVE")
+  .find();
+```
+
+#### where
+
+```javascript
+// where(attribute: string, value: string): Builder;
+const resp = await User.page(1)
+  .perPage(10),
+  .where("company","2")
+  .find();
+```
+
 ### FormData
 
 ```javascript
@@ -254,6 +274,107 @@ export class Base extends Model {
 }
 ```
 
+## React
+
+```javascript
+import React, { Component } from "react";
+import { Model, ELgxSortDirection, ILgxResponse } from "lgx-axios-dev-tools";
+
+class BaseModel extends Model {
+  public baseUrl() {
+    return "http://localhost:3000";
+  }
+}
+
+class Product extends BaseModel {
+  public resource = "products";
+}
+
+class App extends Component {
+  public page = 1;
+  public perPage = 10;
+  state = {
+    products: []
+  };
+
+  componentDidMount() {
+    this.loadProducts();
+  }
+
+  public async loadProducts() {
+    const resp: ILgxResponse = await Product.page(this.page)
+      .perPage(this.perPage)
+      .orderBy("updateAt", ELgxSortDirection.DESC)
+      .find();
+
+    // http://localhost:3000/products?orderBy=-updatedAt&page=1&per_page=10
+
+    this.setState({
+      products: resp.data
+    });
+  }
+
+  render() {
+    return <div className="App">{/* Table */}</div>;
+  }
+}
+
+export default App;
+```
+
+## React native
+
+```javascript
+import React, { Component } from "react";
+import { Text, View } from "react-native";
+import { Model, ELgxSortDirection, ILgxResponse } from "lgx-axios-dev-tools";
+
+class BaseModel extends Model {
+  public baseUrl() {
+    return "http://localhost:3000";
+  }
+}
+
+class Product extends BaseModel {
+  public resource = "products";
+}
+
+class App extends Component {
+  public page = 1;
+  public perPage = 10;
+  state = {
+    products: []
+  };
+
+  componentDidMount() {
+    this.loadProducts();
+  }
+
+  public async loadProducts() {
+    const resp: ILgxResponse = await Product.page(this.page)
+      .perPage(this.perPage)
+      .orderBy("updateAt", ELgxSortDirection.DESC)
+      .find();
+
+    // http://localhost:3000/products?orderBy=-updatedAt&page=1&per_page=10
+
+    this.setState({
+      products: resp.data
+    });
+  }
+
+  render() {
+    return (
+      <View>
+        <Text>{/* Table */}</Text>
+      </View>
+    );
+  }
+}
+
+export default App;
+```
+
 ## Angular
 
 ```javascript
@@ -293,16 +414,6 @@ export class AppComponent implements OnInit {
       .subscribe(products => (this.products = products));
 
     // http://localhost:3000/products?orderBy=-updatedAt&page=1&per_page=10
-  }
-
-  changePage(page: number) {
-    this.page = page;
-    this.loadProducts();
-  }
-
-  changePerPage(perPage: number) {
-    this.perPage = perPage;
-    this.loadProducts();
   }
 }
 ```
@@ -346,73 +457,5 @@ export default class App extends Vue {
 
     this.products = resp.data;
   }
-
-  changePage(page: number) {
-    this.page = page;
-    this.loadProducts();
-  }
-
-  changePerPage(perPage: number) {
-    this.perPage = perPage;
-    this.loadProducts();
-  }
 }
-```
-
-## React
-
-```javascript
-import React, { Component } from "react";
-import { Model, ELgxSortDirection, ILgxResponse } from "lgx-axios-dev-tools";
-
-class BaseModel extends Model {
-  public baseUrl() {
-    return "http://localhost:3000";
-  }
-}
-
-class Product extends BaseModel {
-  public resource = "products";
-}
-
-class App extends Component {
-  public page = 1;
-  public perPage = 10;
-  state = {
-    products: []
-  };
-
-  componentDidMount() {
-    this.loadProducts();
-  }
-
-  public async loadProducts() {
-    const resp: ILgxResponse = await Product.page(this.page)
-      .perPage(this.perPage)
-      .orderBy("updateAt", ELgxSortDirection.DESC)
-      .find();
-
-    // http://localhost:3000/products?orderBy=-updatedAt&page=1&per_page=10
-
-    this.setState({
-      products: resp.data
-    });
-  }
-
-  changePage(page: number) {
-    this.page = page;
-    this.loadProducts();
-  }
-
-  changePerPage(perPage: number) {
-    this.perPage = perPage;
-    this.loadProducts();
-  }
-
-  render() {
-    return <div className="App">{/* Table */}</div>;
-  }
-}
-
-export default App;
 ```

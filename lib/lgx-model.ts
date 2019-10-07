@@ -54,7 +54,7 @@ export abstract class Model {
     return new Builder(this).findRx(page, perPage);
   }
 
-  public static findById(id: number): Promise<any> {
+  public static findById(id: number | string): Promise<any> {
     return new Builder(this).findById(id);
   }
 
