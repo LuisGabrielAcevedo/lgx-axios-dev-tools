@@ -400,7 +400,6 @@ export class AppComponent implements OnInit {
   public page = 1;
   public perPage = 10;
   public products: object[] = [];
-  constructor() {}
 
   ngOnInit() {
     this.loadProducts();
